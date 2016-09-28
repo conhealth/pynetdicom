@@ -5,14 +5,18 @@ use_setuptools()
 from setuptools import setup, find_packages
 import os
 import os.path
-
+import re
 import sys
-import netdicom
+
+with open(os.path.join('netdicom', '__version__.py')) as file_:
+   VERSION = re.match(r'__version__ = "(.*?)"', file_.read()).group(1)
+
+
 
 setup(name="pynetdicom",
       packages = find_packages(),
       include_package_data = True,
-      version=netdicom.__version__,
+      version=VERSION,
       zip_safe = False, # want users to be able to see included examples,tests
       description="Pure python implementation of the DICOM network protocol",
       author="Patrice Munger",
